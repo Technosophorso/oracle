@@ -17,7 +17,8 @@ required dependency for anyone else building on the protocol.
 | Coordination (Nostr subchats + negotiation) | ✅ Phase 1 | [`src/coordination/`](./src/coordination/) | [`docs/PROTOCOL.md`](./docs/PROTOCOL.md) §2-6 |
 | Registry (Arweave listings) | ✅ Phase 2 | [`src/registry/`](./src/registry/) | [`docs/REGISTRY.md`](./docs/REGISTRY.md) |
 | Discovery (rebuildable index) | ✅ Phase 3 | [`src/discovery/`](./src/discovery/) | [`docs/DISCOVERY.md`](./docs/DISCOVERY.md) |
-| Trust tooling (client-side, optional) | ⏳ Phase 5 | — | — |
+| Trust heuristics (client-side, optional) | ✅ Phase 5 | [`src/trust/`](./src/trust/) | [`docs/TRUST.md`](./docs/TRUST.md) |
+| Tool verification (client-side, optional) | ✅ Phase 5 | [`src/verification/`](./src/verification/) | [`docs/VERIFICATION.md`](./docs/VERIFICATION.md) |
 
 ## Getting started
 
@@ -40,6 +41,15 @@ npm run demo:registry
 # build two independent discovery indexes from scratch, and show they
 # converge on the same valid set while the forged one is rejected
 npm run demo:discovery
+
+# end-to-end demo: an established reviewer's vote outweighs a freshly-
+# minted Sybil's opposite vote in the recency/continuity-weighted score
+npm run demo:trust
+
+# end-to-end demo: verify a tool's actual HTTP response against its
+# declared schema (catches a spec-violating tool), and confirm the
+# SSRF guard blocks private/loopback addresses by default
+npm run demo:verification
 ```
 
 No config, no accounts, no API keys — identities are just keypairs

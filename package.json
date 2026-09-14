@@ -9,14 +9,19 @@
     "identity:new": "tsx src/identity/cli.ts new",
     "registry": "tsx src/registry/cli.ts",
     "discovery": "tsx src/discovery/cli.ts",
+    "trust": "tsx src/trust/cli.ts",
+    "verify": "tsx src/verification/cli.ts",
     "demo:subchat": "tsx examples/subchat-demo.ts",
     "demo:registry": "tsx examples/registry-demo.ts",
     "demo:discovery": "tsx examples/discovery-demo.ts",
+    "demo:trust": "tsx examples/trust-demo.ts",
+    "demo:verification": "tsx examples/verification-demo.ts",
     "test": "tsx --test src/**/*.test.ts"
   },
   "dependencies": {
     "@noble/curves": "^2.0.1",
     "@noble/hashes": "^2.0.1",
+    "ajv": "^8.20.0",
     "arweave": "^1.15.7",
     "nostr-tools": "^2.10.4",
     "ws": "^8.18.0"

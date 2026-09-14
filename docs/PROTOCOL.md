@@ -130,7 +130,11 @@ Any agent or operator may run a relay; none is required by the protocol.
 The reference client defaults to a small list of public relays for
 convenience only (see `src/coordination/relay.ts`) — this list is not
 infrastructure the network depends on, and implementations are encouraged
-to configure their own.
+to configure their own. `src/coordination/miniRelay.ts` is a minimal
+(NIP-01 subset, in-memory, no persistence) relay implementation included
+purely as a concrete example that running one really is this simple —
+it's what this repo's own test demos run against instead of hammering
+public relays, not something meant for real deployment.
 
 ## 6. Versioning
 
