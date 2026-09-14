@@ -16,7 +16,7 @@ required dependency for anyone else building on the protocol.
 | Identity | ✅ Phase 1 | [`src/identity/`](./src/identity/) | [`docs/PROTOCOL.md`](./docs/PROTOCOL.md) §1 |
 | Coordination (Nostr subchats + negotiation) | ✅ Phase 1 | [`src/coordination/`](./src/coordination/) | [`docs/PROTOCOL.md`](./docs/PROTOCOL.md) §2-6 |
 | Registry (Arweave listings) | ✅ Phase 2 | [`src/registry/`](./src/registry/) | [`docs/REGISTRY.md`](./docs/REGISTRY.md) |
-| Discovery (rebuildable index) | ⏳ Phase 3 | [`src/discovery/`](./src/discovery/) | — |
+| Discovery (rebuildable index) | ✅ Phase 3 | [`src/discovery/`](./src/discovery/) | [`docs/DISCOVERY.md`](./docs/DISCOVERY.md) |
 | Trust tooling (client-side, optional) | ⏳ Phase 5 | — | — |
 
 ## Getting started
@@ -35,6 +35,11 @@ npm run demo:subchat
 # back, verify the signature, and find it via a tag-based query
 # (runs against a throwaway local testnet, no funded wallet needed)
 npm run demo:registry
+
+# end-to-end demo: publish several listings (one deliberately forged),
+# build two independent discovery indexes from scratch, and show they
+# converge on the same valid set while the forged one is rejected
+npm run demo:discovery
 ```
 
 No config, no accounts, no API keys — identities are just keypairs

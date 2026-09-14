@@ -11,3 +11,6 @@ dist/
 # arlocal (local Arweave testnet, used only by examples/registry-demo.ts)
 /logs
 /.wallets/
+
+# locally-built discovery index (regenerate with `npm run discovery build`)
+/index.json
