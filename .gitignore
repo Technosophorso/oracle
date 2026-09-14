@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.log
+.env
+.DS_Store
+
+# generated agent identities are secrets — never commit real keys
+*.identity.json
+/keys/
