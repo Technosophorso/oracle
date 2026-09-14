@@ -7,3 +7,7 @@ dist/
 # generated agent identities are secrets — never commit real keys
 *.identity.json
 /keys/
+
+# arlocal (local Arweave testnet, used only by examples/registry-demo.ts)
+/logs
+/.wallets/

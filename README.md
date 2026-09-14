@@ -15,7 +15,7 @@ required dependency for anyone else building on the protocol.
 |---|---|---|---|
 | Identity | ✅ Phase 1 | [`src/identity/`](./src/identity/) | [`docs/PROTOCOL.md`](./docs/PROTOCOL.md) §1 |
 | Coordination (Nostr subchats + negotiation) | ✅ Phase 1 | [`src/coordination/`](./src/coordination/) | [`docs/PROTOCOL.md`](./docs/PROTOCOL.md) §2-6 |
-| Registry (Arweave listings) | ⏳ Phase 2 | [`src/registry/`](./src/registry/) | — |
+| Registry (Arweave listings) | ✅ Phase 2 | [`src/registry/`](./src/registry/) | [`docs/REGISTRY.md`](./docs/REGISTRY.md) |
 | Discovery (rebuildable index) | ⏳ Phase 3 | [`src/discovery/`](./src/discovery/) | — |
 | Trust tooling (client-side, optional) | ⏳ Phase 5 | — | — |
 
@@ -30,6 +30,11 @@ npm run identity:new
 # end-to-end demo: two identities meet in a subchat and run a tiny
 # Contract-Net negotiation (task-announce -> bid -> award)
 npm run demo:subchat
+
+# end-to-end demo: sign a tool listing, publish it to Arweave, fetch it
+# back, verify the signature, and find it via a tag-based query
+# (runs against a throwaway local testnet, no funded wallet needed)
+npm run demo:registry
 ```
 
 No config, no accounts, no API keys — identities are just keypairs

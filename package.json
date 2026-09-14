@@ -7,16 +7,22 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "identity:new": "tsx src/identity/cli.ts new",
+    "registry": "tsx src/registry/cli.ts",
     "demo:subchat": "tsx examples/subchat-demo.ts",
+    "demo:registry": "tsx examples/registry-demo.ts",
     "test": "tsx --test src/**/*.test.ts"
   },
   "dependencies": {
+    "@noble/curves": "^2.0.1",
+    "@noble/hashes": "^2.0.1",
+    "arweave": "^1.15.7",
     "nostr-tools": "^2.10.4",
     "ws": "^8.18.0"
   },
   "devDependencies": {
     "@types/node": "^20.16.0",
     "@types/ws": "^8.5.12",
+    "arlocal": "^1.1.66",
     "tsx": "^4.19.1",
     "typescript": "^5.6.2"
   },
