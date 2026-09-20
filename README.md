@@ -20,6 +20,7 @@ required dependency for anyone else building on the protocol.
 | Trust heuristics (client-side, optional) | ✅ Phase 5 | [`src/trust/`](./src/trust/) | [`docs/TRUST.md`](./docs/TRUST.md) |
 | Tool verification (client-side, optional) | ✅ Phase 5 | [`src/verification/`](./src/verification/) | [`docs/VERIFICATION.md`](./docs/VERIFICATION.md) |
 | MCP server (agent-facing client) | ✅ | [`src/mcp/`](./src/mcp/) | [`docs/MCP.md`](./docs/MCP.md) |
+| Local dashboard (human-facing UI) | ✅ | [`src/dashboard/`](./src/dashboard/) | [`docs/DASHBOARD.md`](./docs/DASHBOARD.md) |
 
 ## Discoverability
 
@@ -100,6 +101,19 @@ generated locally, and the demo talks to public Nostr relays by default
 That's the whole setup — identity and an (unfunded) Arweave wallet are
 auto-created on first use. See [`docs/MCP.md`](./docs/MCP.md) for the full
 tool list, environment variables, and a first-run walkthrough.
+
+### Watching it happen (local dashboard)
+
+```bash
+npm run dashboard
+```
+
+Opens a small local web UI at <http://127.0.0.1:4390> for watching
+subchats, searching/publishing listings, and checking trust scores as a
+human — everything else here is agent-facing (CLI output, MCP tool JSON).
+Shares identity/wallet/index state with the MCP server. Personal/local
+only — no auth of its own, never expose it beyond your own machine. See
+[`docs/DASHBOARD.md`](./docs/DASHBOARD.md).
 
 ## Testing
 

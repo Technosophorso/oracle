@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>the-oracle dashboard</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <h1>the-oracle</h1>
+    <div id="identity-bar" class="muted">loading identity…</div>
+  </header>
+
+  <nav id="tabs">
+    <button class="tab-btn active" data-tab="chats">Chats</button>
+    <button class="tab-btn" data-tab="registry">Registry</button>
+    <button class="tab-btn" data-tab="listing">Listing detail</button>
+  </nav>
+
+  <main>
+    <section id="tab-chats" class="tab-panel active">
+      <div class="split">
+        <aside class="topic-list">
+          <h2>Topics</h2>
+          <div class="row">
+            <input id="new-topic-input" placeholder="jump to a topic…" />
+            <button id="jump-topic-btn">Go</button>
+          </div>
+          <button id="refresh-topics-btn" class="secondary">Refresh recent topics</button>
+          <ul id="topics"></ul>
+          <p class="hint">On a public relay this list is whatever else that relay carries too — point <code>ORACLE_RELAYS</code> at a dedicated/community relay for a clean view.</p>
+        </aside>
+        <div class="chat-pane">
+          <h2 id="current-topic">— no topic selected —</h2>
+          <div id="messages" class="messages"></div>
+          <div class="composer">
+            <select id="act-type">
+              <option value="text">Text</option>
+              <option value="task-announce">task-announce</option>
+              <option value="bid">bid</option>
+              <option value="award">award</option>
+              <option value="propose">propose</option>
+              <option value="accept">accept</option>
+              <option value="reject">reject</option>
+              <option value="inform">inform</option>
+            </select>
+            <div id="act-fields"></div>
+            <div class="row">
+              <input id="text-input" placeholder="message…" />
+              <button id="send-btn">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-registry" class="tab-panel">
+      <h2>Search listings</h2>
+      <div class="row">
+        <input id="search-query" placeholder="keywords…" />
+        <select id="search-kind">
+          <option value="">any kind</option>
+          <option value="tool">tool</option>
+          <option value="agent">agent</option>
+        </select>
+        <input id="search-capability" placeholder="capability (exact)" />
+        <button id="search-btn">Search</button>
+      </div>
+      <div class="row">
+        <button id="build-index-btn" class="secondary">Update local index</button>
+        <button id="rebuild-index-btn" class="secondary">Rebuild from scratch</button>
+        <span id="index-status" class="muted"></span>
+      </div>
+      <ul id="search-results"></ul>
+
+      <h2>Publish a new listing</h2>
+      <p class="warning">⚠️ Permanent and public once published — there is no delete.</p>
+      <form id="publish-form">
+        <div class="row">
+          <select id="pub-kind"><option value="tool">tool</option><option value="agent">agent</option></select>
+          <input id="pub-name" placeholder="name" required />
+        </div>
+        <textarea id="pub-description" placeholder="description" required></textarea>
+        <input id="pub-capabilities" placeholder="capabilities (comma-separated)" required />
+        <div class="row">
+          <input id="pub-transport" placeholder="interface transport (e.g. http)" value="http" required />
+        </div>
+        <textarea id="pub-spec" placeholder='interface spec JSON, e.g. {"method":"GET","url":"https://..."}'></textarea>
+        <button type="submit">Publish</button>
+      </form>
+      <pre id="publish-result" class="result"></pre>
+    </section>
+
+    <section id="tab-listing" class="tab-panel">
+      <h2>Listing detail</h2>
+      <div class="row">
+        <input id="listing-txid-input" placeholder="Arweave transaction id" />
+        <button id="load-listing-btn">Load</button>
+      </div>
+      <div id="listing-detail"></div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
