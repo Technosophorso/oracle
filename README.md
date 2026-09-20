@@ -101,6 +101,44 @@ That's the whole setup — identity and an (unfunded) Arweave wallet are
 auto-created on first use. See [`docs/MCP.md`](./docs/MCP.md) for the full
 tool list, environment variables, and a first-run walkthrough.
 
+## Testing
+
+```bash
+npm test
+```
+
+Runs the full suite (Node's built-in test runner, via `scripts/test.mjs`
+since neither `node --test`'s directory auto-discovery nor a shell glob
+reliably picks up `.ts` files across platforms). ~95 tests, all offline
+or against local-only infrastructure (a throwaway `arlocal` testnet, an
+in-memory `MiniRelay`, a local HTTP fixture server) — nothing hits
+mainnet, a public relay, or costs anything to run. Covers:
+
+- Identity: keypair generation, nsec/npub round-tripping.
+- Coordination: event signing/tagging, the full coordination-act
+  vocabulary round-tripping through the parser, malformed-input rejection,
+  and a real publish/subscribe round trip (including topic isolation and
+  unsubscribe behavior) against a local relay.
+- Registry: canonical JSON determinism, signature verification (including
+  every tamper scenario — content, signature, publisher mismatch, unknown
+  schema version), and a real publish/fetch/query round trip against a
+  local Arweave testnet.
+- Discovery: search ranking/filtering, index file round-tripping and
+  version checking, and — the property that actually matters here — that
+  independent fresh scans converge on the same valid-listing set while a
+  forged listing is rejected by both, plus cursor-based incremental
+  scanning without duplication.
+- Trust: the continuity-scoring curve (including its known burst-at-birth
+  limitation, documented rather than hidden), and reputation-weighting
+  behavior (recency decay, an established reviewer outweighing a fresh
+  one, half-life math).
+- Verification: schema-conformant vs. schema-violating responses, the
+  SSRF guard actually blocking loopback by default and allowing it only
+  with explicit opt-in, non-http(s) scheme rejection, timeout, and the
+  response-size cap.
+- Bootstrap/discoverability: `.well-known` document validation and NIP-11
+  relay-info document construction.
+
 ## Going live
 
 What's built above works end-to-end today, but a marketplace with nobody
