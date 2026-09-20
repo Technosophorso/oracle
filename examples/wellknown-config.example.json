@@ -1,0 +1,16 @@
+{
+  "name": "example-oracle-node",
+  "description": "Example configuration for docs/WELLKNOWN.md — replace every URL below with your own domain's before publishing.",
+  "relays": ["wss://relay.example.com"],
+  "registryBackend": "arweave",
+  "sampleListingTxIds": [],
+  "howToPublish": "https://example.com/docs/REGISTRY.md",
+  "docs": {
+    "nip": "https://example.com/docs/nips/NIP-XX-agent-marketplace.md",
+    "protocol": "https://example.com/docs/PROTOCOL.md",
+    "registry": "https://example.com/docs/REGISTRY.md",
+    "discovery": "https://example.com/docs/DISCOVERY.md",
+    "trust": "https://example.com/docs/TRUST.md",
+    "verification": "https://example.com/docs/VERIFICATION.md"
+  }
+}

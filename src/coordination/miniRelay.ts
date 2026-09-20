@@ -13,9 +13,11 @@
 // spam defenses, everything lost on restart. Real relay operators want
 // something like strfry or nostream. This is a teaching/testing relay.
 
+import { createServer, type Server } from "node:http";
 import { WebSocketServer, type WebSocket } from "ws";
 import type { Event } from "nostr-tools/pure";
 import { matchFilter, type Filter } from "nostr-tools/filter";
+import { buildRelayInfo, type RelayInfoOptions } from "./relayInfo.js";
 
 interface Subscription {
   id: string;
@@ -24,29 +26,57 @@ interface Subscription {
 }
 
 export class MiniRelay {
+  private httpServer: Server | undefined;
   private wss: WebSocketServer | undefined;
   private events: Event[] = [];
   private subscriptions: Subscription[] = [];
 
-  constructor(private port: number) {}
+  constructor(
+    private port: number,
+    private relayInfo: RelayInfoOptions = { name: "mini-relay", description: "local test relay" },
+  ) {}
 
+  /**
+   * Serves the NIP-11 relay information document over plain HTTP GET at
+   * the same URL/port used for the WebSocket connection — this is what
+   * lets a generic Nostr client discover "this relay carries the
+   * marketplace's event kinds" without prior knowledge (see relayInfo.ts).
+   */
   start(): Promise<void> {
     return new Promise((resolve) => {
-      this.wss = new WebSocketServer({ port: this.port }, resolve);
+      this.httpServer = createServer((req, res) => {
+        const accept = req.headers.accept ?? "";
+        if (accept.includes("application/nostr+json")) {
+          res.setHeader("Content-Type", "application/nostr+json");
+          res.setHeader("Access-Control-Allow-Origin", "*");
+          res.end(JSON.stringify(buildRelayInfo(this.relayInfo)));
+        } else {
+          res.statusCode = 200;
+          res.end("mini nostr relay — GET with Accept: application/nostr+json for relay info, or connect via WebSocket");
+        }
+      });
+      this.wss = new WebSocketServer({ server: this.httpServer });
       this.wss.on("connection", (socket) => this.handleConnection(socket));
+      this.httpServer.listen(this.port, resolve);
     });
   }
 
   stop(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.subscriptions = [];
-      if (!this.wss) return resolve();
-      this.wss.close((err) => (err ? reject(err) : resolve()));
+      if (!this.httpServer) return resolve();
+      this.wss?.close();
+      this.httpServer.close((err) => (err ? reject(err) : resolve()));
     });
   }
 
   get url(): string {
     return `ws://localhost:${this.port}`;
+  }
+
+  /** Same host:port as `url`, for fetching the NIP-11 info document over HTTP instead of connecting via WebSocket. */
+  get infoUrl(): string {
+    return `http://localhost:${this.port}`;
   }
 
   private handleConnection(socket: WebSocket): void {
