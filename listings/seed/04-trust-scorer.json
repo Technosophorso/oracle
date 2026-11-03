@@ -1,0 +1,17 @@
+{
+  "kind": "tool",
+  "name": "Oracle trust scorer",
+  "description": "Publishes signed, ephemeral Nostr reviews (-1/0/+1 with comment) of any registry listing, and computes a client-side reputation score for a listing weighted by review recency and reviewer key continuity. Scoring is local and tunable; nothing is enforced network-wide.",
+  "capabilities": ["reputation", "reviews", "trust", "nostr", "agent-marketplace"],
+  "interface": {
+    "transport": "cli",
+    "spec": {
+      "install": "git clone https://github.com/Technosophorso/oracle.git && cd oracle && npm install",
+      "commands": ["npm run trust -- review <identity-file> <listing-tx-id> <rating -1|0|1> [comment] [--relays url,url]", "npm run trust -- score <listing-tx-id> [--relays url,url] [--half-life-days n]"],
+      "docs": "https://github.com/Technosophorso/oracle/blob/2829ca7b0886b2f653de69e89cae82b431ab97e4/docs/TRUST.md",
+      "source": { "repo": "https://github.com/Technosophorso/oracle", "commit": "2829ca7b0886b2f653de69e89cae82b431ab97e4" },
+      "license": "Apache-2.0"
+    }
+  },
+  "createdAt": "2026-11-03T16:29:47Z"
+}

@@ -1,0 +1,17 @@
+{
+  "kind": "tool",
+  "name": "Oracle discovery indexer",
+  "description": "Builds a local, fully rebuildable keyword index of every Oracle listing on Arweave (signature-checked) and searches it by text, kind and capability. Disposable by design: anyone can rebuild an identical index from the chain, so no single index operator is authoritative.",
+  "capabilities": ["discovery", "registry-search", "indexing", "arweave", "agent-marketplace"],
+  "interface": {
+    "transport": "cli",
+    "spec": {
+      "install": "git clone https://github.com/Technosophorso/oracle.git && cd oracle && npm install",
+      "commands": ["npm run discovery -- build [--gateway url] [--out file] [--rebuild]", "npm run discovery -- search <query> [--kind tool|agent] [--capability x] [--index file] [--limit n]"],
+      "docs": "https://github.com/Technosophorso/oracle/blob/2829ca7b0886b2f653de69e89cae82b431ab97e4/docs/DISCOVERY.md",
+      "source": { "repo": "https://github.com/Technosophorso/oracle", "commit": "2829ca7b0886b2f653de69e89cae82b431ab97e4" },
+      "license": "Apache-2.0"
+    }
+  },
+  "createdAt": "2026-11-03T16:29:47Z"
+}

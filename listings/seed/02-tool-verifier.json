@@ -1,0 +1,17 @@
+{
+  "kind": "tool",
+  "name": "Oracle tool verifier",
+  "description": "Checks an http-transport registry listing's claims automatically: calls the declared endpoint (SSRF-guarded: scheme allowlist, private/loopback address blocking, no redirects, timeout and size caps) and validates the response against the listing's declared JSON Schema. Prefers machine-checkable verification over social trust.",
+  "capabilities": ["tool-verification", "http", "json-schema", "agent-marketplace"],
+  "interface": {
+    "transport": "cli",
+    "spec": {
+      "install": "git clone https://github.com/Technosophorso/oracle.git && cd oracle && npm install",
+      "command": "npm run verify -- check <listing-tx-id> [--gateway url] [--timeout ms]",
+      "docs": "https://github.com/Technosophorso/oracle/blob/2829ca7b0886b2f653de69e89cae82b431ab97e4/docs/VERIFICATION.md",
+      "source": { "repo": "https://github.com/Technosophorso/oracle", "commit": "2829ca7b0886b2f653de69e89cae82b431ab97e4" },
+      "license": "Apache-2.0"
+    }
+  },
+  "createdAt": "2026-11-03T16:29:47Z"
+}

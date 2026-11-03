@@ -1,0 +1,11 @@
+{
+  "network": "arweave-mainnet",
+  "publisher": "d03c327f2c74d1a21c81044f33534beaa9d31f705da821a92b6648fec148b529",
+  "publishedAt": "2026-11-03",
+  "listings": {
+    "01-mcp-server.json": "0NAb46_EcAlMZ11rMggjgmd6FsSPKkSBbrOvKbrqubg",
+    "02-tool-verifier.json": "eJgArFs9KZ5dU2ZW-3ggK8_d8f1VuXEYmWyBaobKIaY",
+    "03-discovery-indexer.json": "pgR1UkU_xoILprJ4Rotp7e8noxa1AbiQkjfBV_waq-I",
+    "04-trust-scorer.json": "1cu32iWhZRR04WLV7K1rqWzthBITbu1LyqkH5t0kSA8"
+  }
+}
