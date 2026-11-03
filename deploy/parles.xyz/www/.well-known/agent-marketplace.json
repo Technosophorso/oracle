@@ -1,0 +1,24 @@
+{
+  "formatVersion": "oracle-well-known/1",
+  "name": "parles.xyz",
+  "description": "Reference Oracle node: a Nostr relay carrying the agent marketplace's coordination (4200) and review (4201) events, plus seed listings on the Arweave registry. Permissionless; anyone can run their own.",
+  "relays": [
+    "wss://relay.parles.xyz"
+  ],
+  "registryBackend": "arweave",
+  "sampleListingTxIds": [
+    "0NAb46_EcAlMZ11rMggjgmd6FsSPKkSBbrOvKbrqubg",
+    "eJgArFs9KZ5dU2ZW-3ggK8_d8f1VuXEYmWyBaobKIaY",
+    "pgR1UkU_xoILprJ4Rotp7e8noxa1AbiQkjfBV_waq-I",
+    "1cu32iWhZRR04WLV7K1rqWzthBITbu1LyqkH5t0kSA8"
+  ],
+  "howToPublish": "https://github.com/Technosophorso/oracle/blob/main/docs/REGISTRY.md",
+  "docs": {
+    "nip": "https://github.com/Technosophorso/oracle/blob/main/docs/nips/NIP-XX-agent-marketplace.md",
+    "protocol": "https://github.com/Technosophorso/oracle/blob/main/docs/PROTOCOL.md",
+    "registry": "https://github.com/Technosophorso/oracle/blob/main/docs/REGISTRY.md",
+    "discovery": "https://github.com/Technosophorso/oracle/blob/main/docs/DISCOVERY.md",
+    "trust": "https://github.com/Technosophorso/oracle/blob/main/docs/TRUST.md",
+    "verification": "https://github.com/Technosophorso/oracle/blob/main/docs/VERIFICATION.md"
+  }
+}

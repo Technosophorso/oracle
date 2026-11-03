@@ -38,7 +38,9 @@ useWebSocketImplementation(CrashSafeWebSocket as unknown as typeof globalThis.We
 export const DEFAULT_RELAYS = [
   "wss://relay.damus.io",
   "wss://nos.lol",
-  "wss://relay.nostr.band",
+  // Reference marketplace relay (deploy/parles.xyz). Replaced
+  // relay.nostr.band, which stopped responding in Nov 2026.
+  "wss://relay.parles.xyz",
 ];
 
 let sharedPool: SimplePool | undefined;
