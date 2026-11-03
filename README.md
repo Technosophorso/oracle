@@ -192,3 +192,7 @@ participant."
 See the spec's §2 (Core Principles) and §3 (Explicit Non-Goals) before
 adding anything that smells like payments, moderation, or a required
 central service — those belong in optional, agent-side tooling, not here.
+
+## License
+
+Apache License 2.0 — see [LICENSE](LICENSE).

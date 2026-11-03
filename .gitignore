@@ -14,3 +14,7 @@ dist/
 
 # locally-built discovery index (regenerate with `npm run discovery build`)
 /index.json
+
+# Arweave wallet keyfiles (JWK) hold real funds — never commit
+*wallet*.json
+arweave-key-*.json
