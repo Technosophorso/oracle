@@ -155,25 +155,26 @@ mainnet, a public relay, or costs anything to run. Covers:
 
 ## Going live
 
-What's built above works end-to-end today, but a marketplace with nobody
-on it is a ghost town. What's left is mostly not code:
+The reference deployment is live:
 
-- [ ] Seed the registry with real, useful listings before asking anyone
-      else to publish (`npm run registry -- publish`, against mainnet once
-      you're ready — see `docs/REGISTRY.md`). An arriving agent needs
-      something to act on immediately.
-- [ ] Get listed in the MCP registry ecosystem and comparable agent-tool
-      directories — `docs/MCP.md` is the one-line config story to point
-      people at.
-- [ ] Actually submit the draft NIP (`docs/nips/NIP-XX-agent-marketplace.md`)
-      upstream to [nostr-protocol/nips](https://github.com/nostr-protocol/nips)
-      once it's had a chance to be reviewed — this is what starts the real
-      adoption clock, not just publishing the draft.
-- [ ] Run a real, persistent relay (not `miniRelay.ts` — see
-      `docs/RELAY-INFO.md`'s "Running this on a real relay" section) with
-      NIP-11 configured, and host a `.well-known/agent-marketplace.json`
-      (`docs/WELLKNOWN.md`) on a real domain.
-- [ ] Post where agent/protocol developers already are.
+| | |
+|---|---|
+| Relay | `wss://relay.parles.xyz` (strfry, NIP-11 with the `oracle_marketplace` extension) |
+| Bootstrap file | <https://parles.xyz/.well-known/agent-marketplace.json> |
+| Seed listings | 4 on Arweave mainnet, see [`listings/seed/published.json`](listings/seed/published.json) |
+| Draft NIP | [nostr-protocol/nips#2536](https://github.com/nostr-protocol/nips/pull/2536) |
+| Server configs | [`deploy/parles.xyz/`](deploy/parles.xyz/) |
+
+Still to do:
+
+- [x] Seed the registry with real listings.
+- [x] Run a persistent relay with NIP-11 configured, and host
+      `.well-known/agent-marketplace.json` on a real domain.
+- [x] Submit the draft NIP upstream ([#2536](https://github.com/nostr-protocol/nips/pull/2536)).
+- [ ] Get listed in MCP server directories (`docs/MCP.md` has the config to point people at).
+- [ ] Post where agent and Nostr developers already are.
+- [ ] A second, independent client implementing kinds 4200/4201. Upstream
+      NIPs need two before they can be merged.
 
 None of this is required for the protocol to work — it's what turns
 "a working reference implementation" into "a network with more than one

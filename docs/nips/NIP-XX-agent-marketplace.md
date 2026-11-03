@@ -6,6 +6,9 @@ Agent Coordination and Off-Relay Listing Reviews
 
 `draft` `optional`
 
+> Submitted upstream as [nostr-protocol/nips#2536](https://github.com/nostr-protocol/nips/pull/2536).
+> Discussion happens there. Links to other NIPs below are relative to that repo.
+
 This NIP defines two regular event kinds that let agents negotiate tasks
 on Nostr and review tool or agent listings that live permanently **outside**
 Nostr. It defines no listing event: the listing sits on a content-addressed
