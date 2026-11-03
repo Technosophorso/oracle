@@ -12,6 +12,21 @@ import { DEFAULT_RELAYS, getPool } from "../coordination/relay.js";
 export const KIND_REVIEW = 4201;
 export const REVIEW_PROTOCOL_VERSION = "oracle-review/1";
 
+/**
+ * Reviews reference their target with a NIP-73 external content id
+ * (`["i", "arweave:tx:<txid>"]` + `["k", "arweave:tx"]`), following NIP-73's
+ * blockchain-transaction form. It has to be a single-letter tag: NIP-01
+ * relays only index those, so a filter on anything longer (an earlier
+ * draft used `["listing", ...]`) is rejected by real relays like strfry.
+ * Arweave tx ids are base64url, so unlike hex chains they stay case-sensitive.
+ */
+export const LISTING_ID_KIND = "arweave:tx";
+const LISTING_ID_PREFIX = `${LISTING_ID_KIND}:`;
+
+export function listingExternalId(listingTxId: string): string {
+  return LISTING_ID_PREFIX + listingTxId;
+}
+
 export interface ReviewPayload {
   /** -1 (bad), 0 (neutral/mixed), or +1 (good). Deliberately coarse — spec §4.5 warns against treating this as a precise lifetime score. */
   rating: -1 | 0 | 1;
@@ -30,7 +45,8 @@ export function publishReview(
       kind: KIND_REVIEW,
       created_at: Math.floor(Date.now() / 1000),
       tags: [
-        ["listing", listingTxId],
+        ["i", listingExternalId(listingTxId)],
+        ["k", LISTING_ID_KIND],
         ["proto", REVIEW_PROTOCOL_VERSION],
       ],
       content: JSON.stringify(payload),
@@ -53,7 +69,8 @@ export interface ParsedReview {
 function parseReview(event: Event): ParsedReview | undefined {
   if (event.kind !== KIND_REVIEW) return undefined;
   if (event.tags.find((t) => t[0] === "proto")?.[1] !== REVIEW_PROTOCOL_VERSION) return undefined;
-  const listingTxId = event.tags.find((t) => t[0] === "listing")?.[1];
+  const externalId = event.tags.find((t) => t[0] === "i" && t[1]?.startsWith(LISTING_ID_PREFIX))?.[1];
+  const listingTxId = externalId?.slice(LISTING_ID_PREFIX.length);
   if (!listingTxId) return undefined;
   let payload: unknown;
   try {
@@ -74,15 +91,18 @@ function parseReview(event: Event): ParsedReview | undefined {
   };
 }
 
-/** Fetch all reviews currently held by the given relays for one listing. Relays are NOT required to retain reviews forever — that's the point, they're ephemeral (spec §4.3). */
+/** Fetch all reviews currently held by the given relays for one listing. Relays are NOT required to retain reviews forever — they're cheap, non-permanent opinions, not registry records (spec §4.3). */
 export async function fetchReviews(
   listingTxId: string,
   relays: string[] = DEFAULT_RELAYS,
 ): Promise<ParsedReview[]> {
   const pool = getPool();
-  const events = await pool.querySync(relays, { kinds: [KIND_REVIEW], "#listing": [listingTxId] });
+  const events = await pool.querySync(relays, { kinds: [KIND_REVIEW], "#i": [listingExternalId(listingTxId)] });
   const parsed: ParsedReview[] = [];
+  const seen = new Set<string>();
   for (const event of events) {
+    if (seen.has(event.id)) continue; // the same event can arrive from several relays
+    seen.add(event.id);
     const review = parseReview(event);
     if (review) parsed.push(review);
   }

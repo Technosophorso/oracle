@@ -111,6 +111,16 @@ export class MiniRelay {
   }
 
   private handleReq(socket: WebSocket, subId: string, filters: Filter[]): void {
+    // NIP-01: only single-letter tags are indexed. Real relays (e.g. strfry)
+    // reject a filter on any other tag, so this test relay does too —
+    // otherwise code that only works here would pass its tests.
+    const unindexed = filters
+      .flatMap((f) => Object.keys(f))
+      .find((key) => key.startsWith("#") && !/^#[a-zA-Z]$/.test(key));
+    if (unindexed) {
+      socket.send(JSON.stringify(["CLOSED", subId, `error: unindexed tag filter ${unindexed}`]));
+      return;
+    }
     for (const event of this.events) {
       if (filters.some((f) => matchFilter(f, event))) {
         socket.send(JSON.stringify(["EVENT", subId, event]));

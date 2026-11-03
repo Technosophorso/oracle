@@ -21,12 +21,21 @@ required to participate in the coordination or registry layers.
   "kind": 4201,
   "content": "{\"rating\": 1, \"comment\": \"Works great.\"}",
   "tags": [
-    ["listing", "<Arweave transaction id of the listing being reviewed>"],
+    ["i", "arweave:tx:<Arweave transaction id of the listing being reviewed>"],
+    ["k", "arweave:tx"],
     ["proto", "oracle-review/1"]
   ],
   ...
 }
 ```
+
+The listing is referenced with a [NIP-73](https://github.com/nostr-protocol/nips/blob/master/73.md)
+external content id (its blockchain-transaction form). This has to be a
+single-letter tag: NIP-01 relays only index single-letter tags, so to find
+every review of a listing a client queries
+`{"kinds": [4201], "#i": ["arweave:tx:<txid>"]}`. Arweave ids are base64url
+and stay case-sensitive, unlike the lowercase hex ids of the chains in
+NIP-73's examples.
 
 `rating` is deliberately coarse: `-1` (bad), `0` (neutral/mixed), `1`
 (good). Spec §4.5 warns against treating trust as a precise lifetime
